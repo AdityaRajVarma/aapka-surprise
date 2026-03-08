@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sirf Aapke Liye 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose: #ff6b9d;
+  --rose-dark: #e8447a;
+  --rose-light: #ffb3d1;
+  --gold: #ffaa5c;
+  --gold-light: #ffd4a3;
+  --sage: #c77dff;
+  --lav: #dbb4ff;
+  --cream: #1a0a2e;
+  --dark: #1a0a2e;
+  --dark2: #2d1060;
+  --text: #fff5f0;
+  --text-soft: #ffcba4;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #1a0a2e;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* ============ MAGICAL ANIMATIONS ============ */
+@keyframes petalFall {
+  0% { transform: translateY(-80px) rotate(0deg) scale(0.8); opacity:0; }
+  10% { opacity:1; }
+  90% { opacity:0.8; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(1.2); opacity:0; }
+}
+@keyframes sparkleFloat {
+  0% { transform: translate(0,0) scale(0); opacity:0; }
+  30% { opacity:1; transform: translate(var(--sx),var(--sy)) scale(1.2); }
+  100% { transform: translate(var(--ex),var(--ey)) scale(0); opacity:0; }
+}
+@keyframes heartRise {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity:1; }
+  100% { transform: translateY(-120px) scale(0.3) rotate(20deg); opacity:0; }
+}
+@keyframes starburstSpin {
+  0% { transform: rotate(0deg) scale(1); opacity:1; }
+  100% { transform: rotate(360deg) scale(0); opacity:0; }
+}
+@keyframes rainbowPulse {
+  0% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(180deg) brightness(1.3); }
+  100% { filter: hue-rotate(360deg) brightness(1); }
+}
+@keyframes floatSway {
+  0% { transform: translateX(0) translateY(0) rotate(-5deg); }
+  25% { transform: translateX(8px) translateY(-12px) rotate(3deg); }
+  50% { transform: translateX(-5px) translateY(-20px) rotate(-3deg); }
+  75% { transform: translateX(10px) translateY(-10px) rotate(5deg); }
+  100% { transform: translateX(0) translateY(0) rotate(-5deg); }
+}
+@keyframes glowRing {
+  0%,100% { box-shadow: 0 0 20px rgba(255,107,157,0.3), 0 0 40px rgba(255,170,92,0.2), 0 0 60px rgba(219,180,255,0.1); }
+  50% { box-shadow: 0 0 40px rgba(255,107,157,0.7), 0 0 80px rgba(255,170,92,0.5), 0 0 120px rgba(219,180,255,0.3); }
+}
+@keyframes textColorWave {
+  0% { color: #ff6b9d; }
+  33% { color: #ffaa5c; }
+  66% { color: #dbb4ff; }
+  100% { color: #ff6b9d; }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0) rotate(-10deg); opacity:0; }
+  60% { transform: scale(1.2) rotate(3deg); opacity:1; }
+  80% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity:1; }
+}
+@keyframes firework {
+  0% { transform: translate(0,0) scale(1); opacity:1; }
+  100% { transform: translate(var(--fx),var(--fy)) scale(0); opacity:0; }
+}
+
+.petal {
+  position: fixed;
+  font-size: 1.4rem;
+  pointer-events: none;
+  z-index: 999;
+  animation: petalFall linear infinite;
+}
+.magic-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  font-size: 1rem;
+  animation: sparkleFloat 2s ease-out forwards;
+}
+.heart-rise {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  animation: heartRise 1.5s ease-out forwards;
+}
+
+/* ============ TYPING ANIMATION ============ */
+@keyframes typingDot {
+  0%,100% { transform:translateY(0); opacity:0.4; }
+  50% { transform:translateY(-4px); opacity:1; }
+}
+@keyframes msgSlideIn {
+  from { opacity:0; transform:translateY(12px) scale(0.95); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes sentSlideIn {
+  from { opacity:0; transform:translateY(12px) scale(0.95); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+.msg-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 300;
+  animation: msgSlideIn 0.4s cubic-bezier(0.34,1.3,0.64,1) forwards;
+  opacity: 0;
+}
+.msg-received {
+  background: rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.9);
+  border-radius: 18px 18px 18px 4px;
+  align-self: flex-start;
+}
+.msg-sent {
+  background: linear-gradient(135deg, #ff6b9d, #ff6b35);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  align-self: flex-end;
+  animation: sentSlideIn 0.4s cubic-bezier(0.34,1.3,0.64,1) forwards;
+}
+.msg-time {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.25);
+  margin-top: 2px;
+}
+.msg-time.right { text-align: right; }
+.msg-emoji-only {
+  background: none !important;
+  font-size: 1.8rem;
+  padding: 4px 8px !important;
+}
+
+/* ============ EXTRA ANIMATIONS ============ */
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes glow-pulse {
+  0%,100% { box-shadow: 0 0 20px rgba(255,107,157,0.3), 0 0 40px rgba(199,125,255,0.2); }
+  50% { box-shadow: 0 0 40px rgba(255,107,157,0.6), 0 0 80px rgba(199,125,255,0.4); }
+}
+@keyframes shimmer-text {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes float-heart {
+  0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity:0; }
+  10% { opacity:0.7; }
+  90% { opacity:0.4; }
+  100% { transform: translateY(-100px) rotate(20deg) scale(1); opacity:0; }
+}
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity:1; }
+  100% { transform: scale(2.5); opacity:0; }
+}
+.floating-heart-bg {
+  position: fixed;
+  font-size: 1.4rem;
+  pointer-events: none;
+  z-index: 1;
+  animation: float-heart linear infinite;
+}
+.aurora-bg {
+  position: fixed; inset:0;
+  background: linear-gradient(135deg, #1a0a2e, #4a1570, #7b2d8b, #c9184a, #4a1570, #1a0a2e);
+  background-size: 400% 400%;
+  animation: aurora 12s ease infinite;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-card {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.shimmer-title {
+  background: linear-gradient(90deg, #ff6b9d, #e0aaff, #ff9a3c, #ff6b9d);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 3s linear infinite;
+}
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  transform: scale(0);
+  transform-origin: center;
+  animation: ripple 1.5s ease-out infinite;
+}
+
+/* ============ INTRO SCREEN ============ */
+#introScreen {
+  position: fixed; inset: 0;
+  background: #1a0a2e;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+#introScreen.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.1);
+}
+.intro-stars { position: absolute; inset: 0; pointer-events: none; }
+.intro-star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: itwinkle ease-in-out infinite;
+}
+@keyframes itwinkle {
+  0%,100% { opacity:0.1; transform:scale(0.8); }
+  50% { opacity:1; transform:scale(1.3); }
+}
+.intro-emoji { font-size:5rem; animation: float 3s ease-in-out infinite; margin-bottom:20px; }
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(-5deg); }
+  50% { transform:translateY(-15px) rotate(5deg); }
+}
+.intro-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.2;
+  color: white;
+}
+.intro-title span { color: #ff6b9d; font-style: italic; }
+.intro-sub {
+  margin-top: 16px;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.intro-tap {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: pulse-tap 2s ease-in-out infinite;
+}
+@keyframes pulse-tap {
+  0%,100% { opacity:0.5; transform:translateY(0); }
+  50% { opacity:1; transform:translateY(6px); }
+}
+.intro-tap span { font-size:1.8rem; }
+.intro-tap p { font-size:0.8rem; color:rgba(255,255,255,0.4); letter-spacing:0.15em; }
+
+/* ============ MAIN CONTENT ============ */
+#mainContent { display:none; }
+#mainContent.show { display:block; }
+
+/* ============ GALAXY HERO ============ */
+.galaxy-hero {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 30% 40%, #4a1570 0%, #1a0a2e 60%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 20px;
+}
+.galaxy-canvas { position:absolute; inset:0; pointer-events:none; }
+
+.hero-content { position:relative; z-index:2; text-align:center; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,107,157,0.15);
+  border: 1px solid rgba(255,107,157,0.3);
+  color: #ff6b9d;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: white;
+}
+.hero-title .name { color: #ff6b9d; display:block; font-style:italic; }
+.hero-desc {
+  margin-top: 16px;
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 340px;
+  line-height: 1.7;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-scroll {
+  margin-top: 48px;
+  display: flex; flex-direction:column; align-items:center; gap:6px;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+@keyframes scroll-hint {
+  0%,100% { transform:translateY(0); opacity:0.3; }
+  50% { transform:translateY(8px); opacity:0.7; }
+}
+
+/* ============ SECTION WRAPPER ============ */
+.section {
+  padding: 60px 20px;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.section-num {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.section-title span { color: #ff6b9d; font-style: italic; }
+
+/* ============ GALAXY STARS SECTION ============ */
+.galaxy-section {
+  background: radial-gradient(ellipse at 70% 30%, #4a1570 0%, #1a0a2e 70%);
+  padding: 60px 20px;
+  text-align: center;
+}
+.stars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.star-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 20px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.star-card:hover, .star-card.revealed { animation: glow-pulse 2s ease-in-out infinite;
+  background: rgba(255,107,157,0.12);
+  border-color: rgba(255,107,157,0.3);
+  transform: scale(1.04);
+}
+.star-card .star-icon { font-size: 1.8rem; display:block; margin-bottom:6px; }
+.star-card .star-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+.star-card.revealed .star-label { color: #ff6b9d; }
+.star-popup {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+.star-popup.show { display:flex; }
+.star-popup-card {
+  background: linear-gradient(135deg, #2d1060, #4a1570);
+  border: 1px solid rgba(255,107,157,0.25);
+  border-radius: 28px;
+  padding: 36px 28px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn { from{transform:scale(0) rotate(-5deg);opacity:0;} to{transform:scale(1) rotate(0);opacity:1;} }
+.star-popup-emoji { font-size:3rem; margin-bottom:12px; display:block; }
+.star-popup-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: #ff6b9d;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+.star-popup-msg {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.75;
+  font-weight: 300;
+}
+.star-popup-close {
+  margin-top: 24px;
+  background: rgba(255,107,157,0.2);
+  border: 1px solid rgba(255,107,157,0.3);
+  color: #ff6b9d;
+  padding: 10px 28px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: all 0.2s;
+}
+.star-popup-close:hover { background: rgba(255,107,157,0.3); }
+
+/* ============ LETTERS SECTION ============ */
+.letters-section {
+  background: linear-gradient(180deg, #1a0a2e 0%, #1a0030 50%, #1a0a2e 100%);
+  padding: 60px 20px;
+}
+.letters-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.letter-envelope {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.letter-envelope:hover { background: rgba(255,107,157,0.1); transform: translateX(8px); box-shadow: 0 0 20px rgba(255,107,157,0.2); }
+.letter-envelope.opened {
+  background: rgba(212,168,67,0.08);
+  border-color: rgba(212,168,67,0.25);
+}
+.env-icon { font-size: 1.8rem; flex-shrink:0; }
+.env-info { flex:1; }
+.env-title { font-size: 0.95rem; font-weight: 600; color: white; }
+.env-sub { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top:2px; }
+.env-arrow { color: rgba(255,255,255,0.2); font-size: 1.1rem; transition: transform 0.2s; }
+.letter-envelope:hover .env-arrow { transform: translateX(4px); color: #ff6b9d; }
+
+.letter-content {
+  display: none;
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 0 0 16px 16px;
+  margin-top: -12px;
+  border: 1px solid rgba(212,168,67,0.15);
+  border-top: none;
+  animation: slideDown 0.4s ease;
+}
+@keyframes slideDown { from{opacity:0;transform:translateY(-10px);} to{opacity:1;transform:translateY(0);} }
+.letter-content.show { display:block; }
+.letter-text {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.85;
+  font-weight: 300;
+}
+.letter-text em { color: #ff6b9d; font-style: italic; }
+.letter-text strong { color: white; font-weight: 600; }
+
+/* ============ MYSTERY CHOICES ============ */
+.mystery-section {
+  background: radial-gradient(ellipse at 20% 80%, #4a1570 0%, #1a0a2e 60%);
+  padding: 60px 20px;
+  text-align: center;
+}
+.mystery-q {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 28px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.mystery-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+.mystery-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mystery-btn:hover {
+  background: rgba(255,107,157,0.12);
+  border-color: rgba(255,107,157,0.3);
+  transform: translateX(6px);
+}
+.mystery-result {
+  display: none;
+  margin-top: 24px;
+  background: rgba(255,107,157,0.08);
+  border: 1px solid rgba(255,107,157,0.2);
+  border-radius: 18px;
+  padding: 24px 20px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  text-align: left;
+}
+.mystery-result.show { display:block; }
+.mystery-result-emoji { font-size:2.5rem; display:block; margin-bottom:10px; }
+.mystery-result-text {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.mystery-result-text em { color: #ff6b9d; }
+.mystery-reset {
+  margin-top: 16px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+.mystery-reset:hover { border-color: #ff6b9d; color: #ff6b9d; }
+
+/* ============ SPIN WHEEL ============ */
+.wheel-section {
+  background: linear-gradient(180deg, #1a0a2e 0%, #200040 50%, #1a0a2e 100%);
+  padding: 60px 20px;
+  text-align: center;
+}
+.wheel-wrap { position:relative; display:inline-block; margin-top:10px; }
+.wheel-pointer {
+  width:0; height:0;
+  border-left:12px solid transparent;
+  border-right:12px solid transparent;
+  border-top:24px solid #ffd54f;
+  margin: 0 auto -12px;
+  position:relative; z-index:5;
+  filter: drop-shadow(0 0 8px rgba(255,213,79,0.8));
+}
+#spinCanvas {
+  border-radius:50%;
+  box-shadow: 0 0 0 5px rgba(255,255,255,0.08), 0 20px 50px rgba(0,0,0,0.5);
+  cursor:pointer;
+  display:block;
+}
+.wheel-center {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:56px; height:56px;
+  border-radius:50%;
+  background: linear-gradient(135deg,#fff,#f0e0f0);
+  border:none; cursor:pointer;
+  font-size:0.65rem; font-weight:800;
+  color:#4a1570; letter-spacing:0.05em;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index:10; text-transform:uppercase;
+  transition: transform 0.2s;
+  font-family: 'Nunito', sans-serif;
+}
+.wheel-center:hover { transform:translate(-50%,-50%) scale(1.1); }
+.spin-main-btn {
+  margin-top:24px;
+  background: linear-gradient(135deg, #ff6b9d, #e8768a);
+  color:white; border:none;
+  padding:14px 44px; border-radius:50px;
+  font-family:'Nunito',sans-serif;
+  font-size:1rem; font-weight:800;
+  cursor:pointer;
+  box-shadow: 0 8px 24px rgba(255,107,157,0.5);
+  transition: all 0.2s;
+}
+.spin-main-btn:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(232,118,138,0.5); }
+.spin-main-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+/* ============ FINAL LETTER ============ */
+.final-section {
+  background: radial-gradient(ellipse at 50% 50%, #4a1570 0%, #1a0a2e 70%);
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-section::before {
+  content:'';
+  position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.final-heart {
+  font-size: 5rem;
+  display: block;
+  margin: 0 auto 24px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%,100%{transform:scale(1);}
+  15%{transform:scale(1.3);}
+  30%{transform:scale(1);}
+  45%{transform:scale(1.15);}
+}
+.final-letter {
+  max-width: 380px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,107,157,0.15);
+  border-radius: 24px;
+  padding: 32px 28px;
+  position: relative; z-index:2;
+}
+.final-letter-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.9;
+  text-align: left;
+}
+.final-letter-text em { color: #ff6b9d; font-style: normal; }
+.final-sign {
+  margin-top: 20px;
+  text-align: right;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.85rem;
+}
+.final-sign span { color: #ff6b9d; }
+
+/* ============ RESULT POPUP ============ */
+.popup-overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:800;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(6px);
+}
+.popup-overlay.show { display:flex; }
+.popup-card {
+  background: linear-gradient(135deg, #2d1060, #4a1570);
+  border: 1px solid rgba(255,107,157,0.2);
+  border-radius:28px;
+  padding:32px 24px;
+  max-width:340px; width:100%;
+  text-align:center;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.popup-emoji { font-size:3rem; display:block; margin-bottom:10px; animation: wobble 1.5s ease-in-out infinite; }
+@keyframes wobble { 0%,100%{transform:rotate(-6deg);} 50%{transform:rotate(6deg);} }
+.popup-tag {
+  font-size:0.72rem; text-transform:uppercase; letter-spacing:0.18em;
+  padding:4px 14px; border-radius:20px; display:inline-block; margin-bottom:12px;
+}
+.popup-msg {
+  font-size:0.95rem; color:rgba(255,255,255,0.8);
+  line-height:1.8; font-weight:300; margin-bottom:20px;
+}
+.popup-msg em { color:#ff6b9d; font-style:italic; }
+.popup-close {
+  background: linear-gradient(135deg, #ff6b9d, #c9184a);
+  color:white; border:none;
+  padding:12px 28px; border-radius:25px;
+  font-family:'Nunito',sans-serif;
+  font-size:0.9rem; font-weight:700;
+  cursor:pointer; width:100%;
+  transition:all 0.2s;
+  box-shadow: 0 4px 16px rgba(255,107,157,0.4);
+}
+.popup-close:hover { transform:translateY(-2px); }
+
+/* ============ NAV DOTS ============ */
+.nav-dots {
+  position:fixed; right:16px; top:50%;
+  transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:10px;
+  z-index:50;
+}
+.nav-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(255,255,255,0.2);
+  cursor:pointer; transition:all 0.3s;
+}
+.nav-dot.active { background:#ff6b9d; transform:scale(1.4); }
+
+/* ============ CONFETTI ============ */
+.confetti-p {
+  position:fixed; width:8px; height:8px;
+  border-radius:2px; opacity:0;
+  pointer-events:none; z-index:900;
+}
+.confetti-p.fall { animation:cfall 2s ease-in forwards; }
+@keyframes cfall {
+  0%{opacity:1;transform:translateY(-10px) rotate(0);}
+  100%{opacity:0;transform:translateY(100vh) rotate(720deg);}
+}
+
+/* ============ DIVIDER ============ */
+.divider {
+  display:flex; align-items:center; gap:12px;
+  padding:0 20px; max-width:500px; margin:0 auto 40px;
+  opacity:0.3;
+}
+.divider-line { flex:1; height:1px; background:white; }
+.divider span { font-size:1rem; }
+</style>
+</head>
+<body>
+
+<div class="aurora-bg"></div>
+<div class="floating-heart-bg" style="left:8%;animation-duration:9s;animation-delay:0s;">🌸</div>
+<div class="floating-heart-bg" style="left:20%;animation-duration:12s;animation-delay:2s;">🌸</div>
+<div class="floating-heart-bg" style="left:40%;animation-duration:8s;animation-delay:4s;">💗</div>
+<div class="floating-heart-bg" style="left:60%;animation-duration:11s;animation-delay:1s;">✨</div>
+<div class="floating-heart-bg" style="left:75%;animation-duration:10s;animation-delay:3s;">🌸</div>
+<div class="floating-heart-bg" style="left:88%;animation-duration:9s;animation-delay:5s;">🌹</div>
+
+<!-- ===== INTRO SCREEN ===== -->
+<div id="introScreen" onclick="enterSite()">
+  <div class="intro-stars" id="introStars"></div>
+  <div class="intro-emoji">🎁</div>
+  <h1 class="intro-title">
+    Ek Poori<br>
+    <span>Duniya</span><br>
+    Sirf Aapke Liye
+  </h1>
+  <p class="intro-sub">Madam Ji ke liye 💕</p>
+  <div class="intro-tap">
+    <span>👇</span>
+    <p>Tap to open</p>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="mainContent">
+
+  <!-- Nav Dots -->
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="scrollToSection(0)" title="Home"></div>
+    <div class="nav-dot" onclick="scrollToSection(1)" title="Galaxy"></div>
+    <div class="nav-dot" onclick="scrollToSection(2)" title="Letters"></div>
+    <div class="nav-dot" onclick="scrollToSection(3)" title="Mystery"></div>
+    <div class="nav-dot" onclick="scrollToSection(4)" title="Spin"></div>
+    <div class="nav-dot" onclick="scrollToSection(5)" title="Fun Zone"></div>
+    <div class="nav-dot" onclick="scrollToSection(6)" title="Message"></div>
+    <div class="nav-dot" onclick="scrollToSection(6)" title="Dil Se"></div>
+  </div>
+
+  <!-- ===== SECTION 1: HERO ===== -->
+  <section class="galaxy-hero" id="sec0">
+    <canvas class="galaxy-canvas" id="galaxyCanvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge">✨ Aapke Liye Ek Surprise ✨</div>
+      <h1 class="hero-title shimmer-title">
+        Ek Poori Duniya
+        <span class="name">Madam Ji</span>
+      </h1>
+      <p class="hero-desc">
+        Yeh page sirf aur sirf aapke liye bana hai  - <br>
+        pyaar se, care se, aur thodi si masti ke saath 🌸
+      </p>
+      <div class="hero-scroll">
+        <span style="font-size:1.2rem">↓</span>
+        <span>Scroll karo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: GALAXY STARS ===== -->
+  <section id="sec1">
+    <div class="galaxy-section">
+      <div class="section" style="text-align:center; padding-bottom:0;">
+        <p class="section-num">01  -  Galaxy</p>
+        <h2 class="section-title">Har <span>Star</span> Mein<br>Ek Message Hai</h2>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.88rem;margin-bottom:32px;">Click karo kisi bhi star pe 🌟</p>
+      </div>
+      <div class="stars-grid">
+        <div class="star-card" onclick="showStar(0)"><span class="star-icon">⭐</span><span class="star-label">Star 1</span></div>
+        <div class="star-card" onclick="showStar(1)"><span class="star-icon">🌟</span><span class="star-label">Star 2</span></div>
+        <div class="star-card" onclick="showStar(2)"><span class="star-icon">💫</span><span class="star-label">Star 3</span></div>
+        <div class="star-card" onclick="showStar(3)"><span class="star-icon">✨</span><span class="star-label">Star 4</span></div>
+        <div class="star-card" onclick="showStar(4)"><span class="star-icon">🌙</span><span class="star-label">Star 5</span></div>
+        <div class="star-card" onclick="showStar(5)"><span class="star-icon">☀️</span><span class="star-label">Star 6</span></div>
+        <div class="star-card" onclick="showStar(6)"><span class="star-icon">🌸</span><span class="star-label">Star 7</span></div>
+        <div class="star-card" onclick="showStar(7)"><span class="star-icon">💕</span><span class="star-label">Star 8</span></div>
+        <div class="star-card" onclick="showStar(8)"><span class="star-icon">🎯</span><span class="star-label">Star 9</span></div>
+        <div class="star-card" onclick="showStar(9)"><span class="star-icon">🌺</span><span class="star-label">Star 10</span></div>
+        <div class="star-card" onclick="showStar(10)"><span class="star-icon">💙</span><span class="star-label">Star 11</span></div>
+        <div class="star-card" onclick="showStar(11)"><span class="star-icon">🦋</span><span class="star-label">Star 12</span></div>
+        <div class="star-card" onclick="showStar(12)"><span class="star-icon">👑</span><span class="star-label">Star 13</span></div>
+        <div class="star-card" onclick="showStar(13)"><span class="star-icon">😤</span><span class="star-label">Star 14</span></div>
+        <div class="star-card" onclick="showStar(14)"><span class="star-icon">🌻</span><span class="star-label">Star 15</span></div>
+        <div class="star-card" onclick="showStar(15)"><span class="star-icon">😌</span><span class="star-label">Star 16</span></div>
+        <div class="star-card" onclick="showStar(16)"><span class="star-icon">🔥</span><span class="star-label">Star 17</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: 7 LETTERS ===== -->
+  <section id="sec2">
+    <div class="letters-section">
+      <div class="section">
+        <p class="section-num">02  -  Letters</p>
+        <h2 class="section-title">7 <span>Sealed</span> Khat<br>Sirf Aapke Liye</h2>
+        <div class="letters-grid" id="lettersGrid">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: MYSTERY BOX ===== -->
+  <section id="sec3">
+    <div class="mystery-section">
+      <div class="section" style="text-align:center;">
+        <p class="section-num">03  -  Mystery</p>
+        <h2 class="section-title"><span>Mystery</span> Box<br>Tumhari Choice</h2>
+        <p class="mystery-q" id="mysteryQ">"Abhi tumhara mood kaisa hai?"</p>
+        <div class="mystery-choices" id="mysteryChoices"></div>
+        <div class="mystery-result" id="mysteryResult">
+          <span class="mystery-result-emoji" id="mystResultEmoji">🌸</span>
+          <p class="mystery-result-text" id="mystResultText"></p>
+          <button class="mystery-reset" onclick="resetMystery()">Dobara Try Karo 🔄</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: SPIN WHEEL ===== -->
+  <section id="sec4">
+    <div class="wheel-section">
+      <div class="section" style="text-align:center;">
+        <p class="section-num">04  -  Spin</p>
+        <h2 class="section-title">Spin <span>Karo</span><br>Message Pao</h2>
+        <div class="wheel-pointer"></div>
+        <div class="wheel-wrap">
+          <canvas id="spinCanvas" width="280" height="280"></canvas>
+          <button class="wheel-center" onclick="doSpin()">SPIN!</button>
+        </div>
+        <br>
+        <button class="spin-main-btn ripple-btn" id="spinMainBtn" onclick="doSpin()">🎡 Spin Karo!</button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  <!-- ===== SECTION: RELAXATION + STUDY GAME ===== -->
+  <section id="secGame">
+    <div style="min-height:100vh;background:linear-gradient(135deg,#1a0a2e 0%,#2d1060 40%,#6b1f4a 70%,#1a0a2e 100%);padding:50px 20px;position:relative;overflow:hidden;">
+
+      <div style="position:absolute;top:5%;left:5%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,107,157,0.1),transparent 70%);border-radius:50%;animation:drift 8s ease-in-out infinite alternate;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:5%;right:5%;width:160px;height:160px;background:radial-gradient(circle,rgba(255,170,92,0.1),transparent 70%);border-radius:50%;animation:drift 10s ease-in-out infinite alternate-reverse;pointer-events:none;"></div>
+
+      <div style="max-width:440px;margin:0 auto;position:relative;z-index:2;">
+
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:8px;text-align:center;">Aapke Liye 🌸</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:white;margin-bottom:6px;text-align:center;">Fun <span style="color:#ff6b9d;font-style:italic;">Zone</span> 🎮</h2>
+        <p style="text-align:center;color:rgba(255,255,255,0.35);font-size:0.82rem;margin-bottom:28px;">Thako toh aao  -  relax bhi, seekho bhi 💕</p>
+
+        <!-- Tab buttons -->
+        <div style="display:flex;gap:10px;margin-bottom:24px;background:rgba(255,255,255,0.04);border-radius:16px;padding:6px;">
+          <button id="tabEng" onclick="switchGameTab('eng')" style="flex:1;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#ff6b9d,#ff6b35);color:white;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.3s;">📖 English</button>
+          <button id="tabSci" onclick="switchGameTab('sci')" style="flex:1;padding:10px;border-radius:12px;border:none;background:transparent;color:rgba(255,255,255,0.5);font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.3s;">🔬 Science</button>
+          <button id="tabBreath" onclick="switchGameTab('breath')" style="flex:1;padding:10px;border-radius:12px;border:none;background:transparent;color:rgba(255,255,255,0.5);font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.3s;">💫 Breathe</button>
+        </div>
+
+        <!-- ENGLISH TAB -->
+        <div id="gameEng" style="display:none;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(219,180,255,0.2);border-radius:22px;padding:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;">📖 English Quiz</p>
+              <div style="display:flex;gap:6px;">
+                <button onclick="setEngCat('grammar')" id="engGram" style="padding:5px 10px;border-radius:10px;border:none;background:rgba(219,180,255,0.2);color:#dbb4ff;font-family:'Nunito',sans-serif;font-size:0.72rem;cursor:pointer;">Grammar</button>
+                <button onclick="setEngCat('vocab')" id="engVocab" style="padding:5px 10px;border-radius:10px;border:none;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);font-family:'Nunito',sans-serif;font-size:0.72rem;cursor:pointer;">Vocab</button>
+                <button onclick="setEngCat('lit')" id="engLit" style="padding:5px 10px;border-radius:10px;border:none;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);font-family:'Nunito',sans-serif;font-size:0.72rem;cursor:pointer;">Literature</button>
+              </div>
+            </div>
+            <div style="text-align:right;font-size:0.82rem;color:rgba(255,255,255,0.35);margin-bottom:14px;">Score: <span id="engScore">0</span> ⭐</div>
+            <p id="engQ" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:white;line-height:1.7;margin-bottom:18px;min-height:65px;"></p>
+            <div id="engOptions" style="display:flex;flex-direction:column;gap:9px;"></div>
+            <div id="engFeedback" style="display:none;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.88rem;line-height:1.6;"></div>
+            <button id="engNextBtn" onclick="nextEngQ()" style="display:none;margin-top:14px;background:linear-gradient(135deg,#dbb4ff,#ff6b9d);color:white;border:none;padding:11px 28px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;width:100%;">Agla Sawaal →</button>
+          </div>
+        </div>
+
+        <!-- SCIENCE TAB -->
+        <div id="gameSci" style="display:none;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(100,181,246,0.2);border-radius:22px;padding:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+              <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;">🔬 Science Quiz</p>
+              <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Score: <span id="sciScore">0</span> ⭐</div>
+            </div>
+            <p id="sciQ" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:white;line-height:1.6;margin-bottom:18px;min-height:60px;"></p>
+            <div id="sciOptions" style="display:flex;flex-direction:column;gap:9px;"></div>
+            <div id="sciFeedback" style="display:none;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.88rem;line-height:1.6;"></div>
+            <button id="sciNextBtn" onclick="nextSciQ()" style="display:none;margin-top:14px;background:linear-gradient(135deg,#ff6b9d,#ff6b35);color:white;border:none;padding:11px 28px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;width:100%;">Agla Sawaal →</button>
+          </div>
+        </div>
+
+        <!-- BREATHING TAB -->
+        <div id="gameBreath" style="display:none;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(219,180,255,0.2);border-radius:22px;padding:28px;text-align:center;">
+            <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px;">💫 4-7-8 Breathing</p>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:24px;">Stress khatam, neend achhi  -  try karo 🌸</p>
+
+            <div id="breathCircle" style="width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,157,0.3),rgba(219,180,255,0.1));border:2px solid rgba(255,107,157,0.3);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:white;font-family:'Cormorant Garamond',serif;font-style:italic;transition:all 1s ease;cursor:pointer;">
+              Start
+            </div>
+
+            <p id="breathInstruction" style="font-size:0.95rem;color:rgba(255,255,255,0.7);margin-bottom:8px;font-family:'Cormorant Garamond',serif;font-style:italic;">Circle pe click karo 🌸</p>
+            <p id="breathCount" style="font-size:2rem;color:#ff6b9d;font-weight:700;min-height:48px;"></p>
+
+            <button onclick="startBreathing()" id="breathBtn" style="margin-top:16px;background:rgba(219,180,255,0.15);border:1px solid rgba(219,180,255,0.3);color:#dbb4ff;padding:10px 28px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s;width:100%;">💫 Shuru Karo</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: TYPING MESSAGE ===== -->
+  <section id="secTyping">
+    <div style="min-height:100vh;background:linear-gradient(135deg,#1a0a2e 0%,#2d1060 40%,#6b1f4a 70%,#1a0a2e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;position:relative;overflow:hidden;">
+      
+      <!-- bg glow blobs -->
+      <div style="position:absolute;top:10%;left:10%;width:250px;height:250px;background:radial-gradient(circle,rgba(255,107,157,0.12),transparent 70%);border-radius:50%;animation:drift 8s ease-in-out infinite alternate;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:15%;right:5%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,170,92,0.1),transparent 70%);border-radius:50%;animation:drift 10s ease-in-out infinite alternate-reverse;pointer-events:none;"></div>
+
+      <div style="max-width:420px;width:100%;position:relative;z-index:2;">
+        
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:8px;text-align:center;">Ek Message Hai 💌</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:white;margin-bottom:28px;text-align:center;line-height:1.2;">Tumhare Liye <span style="color:#ff6b9d;font-style:italic;">Likha Tha</span> 🌸</h2>
+
+        <!-- Phone mockup -->
+        <div id="phoneMockup" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,107,157,0.25);border-radius:28px;padding:20px 16px;box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 40px rgba(255,107,157,0.1);">
+          
+          <!-- Phone top bar -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#ff6b9d,#ffaa5c);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">🌸</div>
+            <div>
+              <div style="font-size:0.88rem;font-weight:600;color:white;">Madam Ji</div>
+              <div style="font-size:0.7rem;color:#7adb8f;">● Online</div>
+            </div>
+          </div>
+
+          <!-- Messages container -->
+          <div id="msgContainer" style="display:flex;flex-direction:column;gap:10px;min-height:320px;">
+          </div>
+
+          <!-- Typing indicator -->
+          <div id="typingIndicator" style="display:none;padding:8px 14px;margin-top:6px;">
+            <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.08);padding:8px 14px;border-radius:18px 18px 18px 4px;">
+              <span style="width:7px;height:7px;background:rgba(255,255,255,0.5);border-radius:50%;animation:typingDot 1.2s ease-in-out infinite;"></span>
+              <span style="width:7px;height:7px;background:rgba(255,255,255,0.5);border-radius:50%;animation:typingDot 1.2s ease-in-out 0.2s infinite;"></span>
+              <span style="width:7px;height:7px;background:rgba(255,255,255,0.5);border-radius:50%;animation:typingDot 1.2s ease-in-out 0.4s infinite;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start button -->
+        <div style="text-align:center;margin-top:24px;">
+          <button id="startTypingBtn" onclick="startTypingAnimation()" style="background:linear-gradient(135deg,#ff6b9d,#ff6b35);color:white;border:none;padding:14px 40px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(255,107,157,0.4);transition:all 0.2s;letter-spacing:0.05em;">
+            💌 Message Padhna Shuru Karo
+          </button>
+          <button id="replayTypingBtn" onclick="replayTyping()" style="display:none;background:rgba(255,255,255,0.08);border:1px solid rgba(255,107,157,0.3);color:rgba(255,255,255,0.6);padding:10px 28px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.85rem;cursor:pointer;margin-top:12px;transition:all 0.2s;">
+            🔄 Phir Se Padhna Hai
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: FINAL LETTER ===== -->
+  <section id="sec5">
+    <div class="final-section">
+      <span class="final-heart">💕</span>
+      <div class="section" style="text-align:center; padding-top:0;">
+        <p class="section-num" style="margin-bottom:20px;">05  -  Dil Se</p>
+        <div class="final-letter glow-card">
+          <p class="final-letter-text">
+            Tumse ek baat kehni thi  - <br><br>
+            Tum jo ho, woh <em>bahut khaas</em> hai.<br>
+            Na isliye ki main bol raha hoon  - <br>
+            balki isliye ki maine dekha hai.<br><br>
+            Tumhara dard, tumhari muskaan,<br>
+            tumhara gussa, tumhara pyaar  - <br>
+            <em>sab kuch real hai.</em> Aur main<br>
+            sab kuch sun'na chahta hoon.<br><br>
+            Jab bhi bura lage  -  yaad rakhna,<br>
+            ek banda hai jo genuinely<br>
+            <em>tumhara khayal rakhta hai.</em><br><br>
+            Bas itna hi. Koi drama nahi. 🌸
+          </p>
+          <div class="final-sign"> -  Main yahin hoon, hamesha <span>💕</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end mainContent -->
+
+<!-- Star Popup -->
+<div class="star-popup" id="starPopup" onclick="closeStarPopup(event)">
+  <div class="star-popup-card">
+    <span class="star-popup-emoji" id="starPopEmoji">⭐</span>
+    <h3 class="star-popup-title" id="starPopTitle">Title</h3>
+    <p class="star-popup-msg" id="starPopMsg">Message</p>
+    <button class="star-popup-close" onclick="document.getElementById('starPopup').classList.remove('show')">Close 💫</button>
+  </div>
+</div>
+
+<!-- Spin Result Popup -->
+<div class="popup-overlay" id="spinPopup" onclick="closeSpinPopup(event)">
+  <div class="popup-card">
+    <span class="popup-emoji" id="spinPopEmoji">🌸</span>
+    <div class="popup-tag" id="spinPopTag">Tag</div>
+    <p class="popup-msg" id="spinPopMsg">Message</p>
+    <button class="popup-close" onclick="document.getElementById('spinPopup').classList.remove('show')">Phir Spin Karo 🎡</button>
+  </div>
+</div>
+
+<script>
+// ===== STARS INTRO =====
+const iStars = document.getElementById('introStars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div');
+  s.className='intro-star';
+  const sz=Math.random()*2.5+0.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${1.5+Math.random()*3}s;animation-delay:${Math.random()*3}s;`;
+  iStars.appendChild(s);
+}
+
+// ===== ENTER SITE =====
+function enterSite(){
+  document.getElementById('introScreen').classList.add('hide');
+  setTimeout(()=>{
+    document.getElementById('introScreen').style.display='none';
+    document.getElementById('mainContent').classList.add('show');
+    initGalaxyCanvas();
+    initSpinWheel();
+  },800);
+  spawnConfetti(40);
+}
+
+// ===== GALAXY CANVAS =====
+function initGalaxyCanvas(){
+  const c=document.getElementById('galaxyCanvas');
+  const ctx=c.getContext('2d');
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  const stars=[];
+  for(let i=0;i<150;i++) stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+0.3,a:Math.random(),da:0.005+Math.random()*0.01});
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      s.a+=s.da; if(s.a>1||s.a<0)s.da*=-1;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${s.a})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ===== GALAXY STARS DATA =====
+const starData = [
+  {emoji:'💕', title:'Pehli Baat', msg:'Pata hai ek cheez  -  jab bhi tum baat karte ho, lagta hai <em>sab kuch thoda acha ho jaata hai.</em> Yeh rare hai.'},
+  {emoji:'😄', title:'Sach Baat', msg:'Tum sabka itna khayal rakhti ho  -  par khud ke liye? Zero. <em>Isliye main hoon.</em> Paani piya? 😏'},
+  {emoji:'🌸', title:'Jo Dikhta Hai', msg:'Log strong dikhte hain  -  tum <em>actually</em> strong ho. Andar se. Woh fark bahut bada hota hai.'},
+  {emoji:'✨', title:'Ek Observation', msg:'Tumhe shayad pata bhi nahi  -  par jab tum genuinely muskurati ho, <em>poora mahaul badal jaata hai.</em>'},
+  {emoji:'🌙', title:'Raat Ko', msg:'Kabhi bhi neend na aaye, dil bhari lage  -  <em>message karo bas.</em> Koi sawaal nahi. Main yahin hoon.'},
+  {emoji:'💛', title:'Meri Aadat', msg:'Main woh karta hoon jo kehta hoon. Zyada nahi bolun  -  <em>par jo bolun, woh pakka.</em>'},
+  {emoji:'🎯', title:'Ek Hi Cheez', msg:'Itni saari cheezein hain is duniya mein  -  par tumhari <em>ek choti si smile</em> sab se zyada matter karti hai.'},
+  {emoji:'🥺', title:'Shukriya', msg:'Tumne jo mujhpe trust kiya  -  woh main jaanta hoon <em>kitna mushkil tha.</em> Iska khayal rakhunga hamesha.'},
+  {emoji:'🎉', title:'Aaj Ke Liye', msg:'Aaj sirf ek kaam karo  -  <em>khud ke liye kuch acha sochna.</em> Tum deserve karti ho, chahe maano ya na maano.'},
+  {emoji:'🌺', title:'Iron Wali Heroine', msg:'Haemoglobin ki kami hai  -  par <em>himmat ki nahi.</em> Khana khao, paani piyao. Main serious hoon. 🙂'},
+  {emoji:'💙', title:'Bina Wajah', msg:'Koi bada reason nahi chahiye  -  <em>bas tum ho, isliye khayal aata hai.</em> Itna hi kaafi hai.'},
+  {emoji:'🦋', title:'Ek Din', msg:'Ek din jab sab theek hoga  -  yaad rakhna, <em>tum khud ne woh din banaya tha.</em> Kisi aur ne nahi.'},
+  {emoji:'👑', title:'Haq Hai Tumhara', msg:'Bura lage toh bolo. Gussa aaye toh bolo. Kuch achha ho toh bhi bolo. <em>Yeh haq tumhara hai mujhpe.</em> Use karo.'},
+  {emoji:'😤', title:'Bol Diya Karo', msg:'Andar andar mat ghumaao  -  seedha bolo. <em>Main sunta hoon.</em> Judge nahi karta. Kabhi nahi.'},
+  {emoji:'🌻', title:'Maang Lo', msg:'Help chahiye? Maango. Baat karni hai? Karo. <em>Chup rehne ki zaroorat nahi</em>  -  main yahin hoon isliye.'},
+  {emoji:'😌', title:'Tumhara Haq', msg:'Rona aaye toh roo lena. Gussa aaye toh nikaalo. <em>Mujhse kuch chupaane ki zaroorat nahi.</em> Sach mein.'},
+  {emoji:'🔥', title:'Aur Haan', msg:'Agar koi tumhe hurt kare  -  <em>mujhe batana.</em> Main kuch nahi karunga... par sunna zaroori hai. 😤'},
+];
+
+function showStar(i){
+  const d=starData[i];
+  document.getElementById('starPopEmoji').textContent=d.emoji;
+  document.getElementById('starPopTitle').textContent=d.title;
+  document.getElementById('starPopMsg').innerHTML=d.msg;
+  document.getElementById('starPopup').classList.add('show');
+  document.querySelectorAll('.star-card')[i].classList.add('revealed');
+}
+function closeStarPopup(e){ if(e.target===document.getElementById('starPopup')) document.getElementById('starPopup').classList.remove('show'); }
+
+// ===== 7 LETTERS =====
+const letters = [
+  {icon:'💌', title:'Funny Wala Khat', sub:'Hasne ke liye',
+   text:'Madam Ji,\n\nMain sochta tha ki main tumhe impress karunga apni baaton se  -  phir socha, nahi yaar, <em>khud hi enough hoon.</em> 😎\n\nPar seriously  -  tumhare saath baat karna easy lagta hai. Woh cheez rare hai.\n\nMain yahin hoon,\n<strong> -  Hamesha 💕</strong>'},
+  {icon:'🌸', title:'Care Wala Khat', sub:'Dil se',
+   text:'Madam Ji,\n\nTum khud ka khayal nahi rakhti  -  yeh mujhe pata hai.\n\nIsliye main hoon:\n💧 Paani piya?\n🍽️ Khana khaya?\n😴 Neend puri hui?\n\nAgar nahi  -  <em>ab karo.</em> Main dekh raha hoon. 👀\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+  {icon:'💛', title:'Promise Wala Khat', sub:'Sachchi baat',
+   text:'Madam Ji,\n\nMain teen cheezein promise karta hoon:\n\n1. Tumhe kabhi <em>second choice</em> feel nahi hone dunga.\n2. Jab bura lage  -  main yahin rahunga.\n3. Tumhari care words se nahi, <em>actions se karunga.</em>\n\nBas itna.\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+  {icon:'🥺', title:'Emotional Khat', sub:'Sirf aapke liye',
+   text:'Madam Ji,\n\nTumne jo share kiya mujhse  -  woh <em>bahut brave tha.</em>\n\nHar baar jab tum kuch chupaati ho dard  -  mujhe pata chal jaata hai. Aur main chahta hoon ki tum jaano:\n\n<em>Tum akeli nahi ho.</em>\n\nKabhi bhi nahi.\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+  {icon:'😏', title:'Teasing Wala Khat', sub:'Chhedo toh sahi',
+   text:'Madam Ji,\n\nYeh baat sirf main jaanta hoon  -  <em>tum itni serious kyun rehti ho?</em>\n\nHanso thoda. Masti karo. Duniya nahi badlegi agar tum ek baar freely haso.\n\nAur waise  -  <em>tumhari smile best hai.</em> (Yeh secretly bol raha hoon, officially nahi 😏)\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+  {icon:'💪', title:'Strength Wala Khat', sub:'Tumhari asli pehchaan',
+   text:'Madam Ji,\n\nTum jaanti ho tumme kya hai jo bahut kam logon mein hota hai?\n\n<em>Tum toot ke bhi khadi rehti ho.</em>\n\nHar baar. Yeh strength nahi dikhti bahar se  -  par main dekh sakta hoon.\n\nYeh quality  -  <em>bahut rare hai.</em>\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+  {icon:'👑', title:'Haq Wala Khat', sub:'Seedhi baat',
+   text:'Madam Ji,\n\nSuno  -  <em>yeh tumhara haq hai mujhpe.</em>\n\nGussa aaye? Bolo.\nBura lage? Bolo.\nKuch samajh na aaye? Bolo.\nBas baat karna ho? Woh bhi bolo.\n\nChup rehke andar andar mat ghumaao. Main judge nahi karta  -  <em>kabhi nahi.</em>\n\nYeh haq use karo. Seriously.\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong>'},
+  {icon:'✨', title:'Last Wala Khat', sub:'Sabse khaas',
+   text:'Madam Ji,\n\nYeh poori website  -  yeh sab tumhare liye tha.\n\nKyunki kabhi kabhi <em>words se zyada</em> kuch dikhana padta hai.\n\nTum special ho  -  not because I say so, but because <em>you truly are.</em>\n\nAur yeh  -  hamesha yaad rakhna.\n\n<strong>Main yahin hoon,\n -  Hamesha 💕</strong></strong>'},
+];
+
+const grid = document.getElementById('lettersGrid');
+letters.forEach((l,i)=>{
+  const wrapper=document.createElement('div');
+  wrapper.innerHTML=`
+    <div class="letter-envelope" onclick="toggleLetter(${i})" id="env${i}">
+      <span class="env-icon">${l.icon}</span>
+      <div class="env-info">
+        <div class="env-title">${l.title}</div>
+        <div class="env-sub">${l.sub}</div>
+      </div>
+      <span class="env-arrow">→</span>
+    </div>
+    <div class="letter-content" id="lc${i}">
+      <p class="letter-text">${l.text.replace(/\n/g,'<br>')}</p>
+    </div>`;
+  grid.appendChild(wrapper);
+});
+
+function toggleLetter(i){
+  const lc=document.getElementById('lc'+i);
+  const env=document.getElementById('env'+i);
+  const isOpen=lc.classList.contains('show');
+  // close all
+  document.querySelectorAll('.letter-content').forEach(x=>x.classList.remove('show'));
+  document.querySelectorAll('.letter-envelope').forEach(x=>x.classList.remove('opened'));
+  if(!isOpen){ lc.classList.add('show'); env.classList.add('opened'); }
+}
+
+// ===== MYSTERY BOX =====
+const mysteryTree = {
+  q: "Abhi tumhara mood kaisa hai?",
+  choices: [
+    { label: "😊 Thoda acha", emoji:"😊",
+      result:{emoji:"🌸", text:"Yeh thoda acha  -  <em>enough hai.</em> Hamesha 100% nahi hona. Aaj ka din acha jaaye  -  bas yahi kaafi hai. 💛"} },
+    { label: "😐 Normal hai", emoji:"😐",
+      result:{emoji:"✨", text:"Normal bhi ek feeling hai  -  aur normal dino mein bhi <em>tum special hoti ho.</em> Koi drama nahi chahiye. Bas tum  -  as you are. 🌸"} },
+    { label: "😔 Thoda bura", emoji:"😔",
+      result:{emoji:"💕", text:"Sunna tha yeh  -  <em>bura lagta hai kabhi kabhi, aur woh bilkul theek hai.</em> Cry karo agar karna ho. Phir uthna. Main hoon. 🥺"} },
+    { label: "😤 Gussa hoon", emoji:"😤",
+      result:{emoji:"😄", text:"Theek hai! Gussa nikalo  -  vent karo. Phir batao mujhe. <em>Main sunta hoon bina judge kiye.</em> Promise. 😎"} },
+  ]
+};
+
+function initMystery(){
+  document.getElementById('mysteryQ').textContent = `"${mysteryTree.q}"`;
+  const container = document.getElementById('mysteryChoices');
+  container.innerHTML='';
+  mysteryTree.choices.forEach((c,i)=>{
+    const btn=document.createElement('button');
+    btn.className='mystery-btn';
+    btn.innerHTML=`<span style="font-size:1.3rem">${c.emoji}</span> ${c.label}`;
+    btn.onclick=()=>showMysteryResult(c.result);
+    container.appendChild(btn);
+  });
+}
+function showMysteryResult(r){
+  document.getElementById('mystResultEmoji').textContent=r.emoji;
+  document.getElementById('mystResultText').innerHTML=r.text;
+  document.getElementById('mysteryChoices').style.display='none';
+  const res=document.getElementById('mysteryResult');
+  res.classList.add('show');
+  spawnConfetti(20);
+}
+function resetMystery(){
+  document.getElementById('mysteryResult').classList.remove('show');
+  document.getElementById('mysteryChoices').style.display='flex';
+}
+initMystery();
+
+// ===== SPIN WHEEL =====
+const spinSegs = [
+  {label:'💕 Pyaar', color:'#ff6b9d', emoji:'💕', tag:'Dil Se 💕', tagBg:'rgba(232,118,138,0.15)', tagColor:'#ff6b9d',
+   msg:'Tum jo ho  -  <em>woh bahut khaas hai.</em> Main sunta hoon sab kuch.'},
+  {label:'😄 Funny', color:'#ffd54f', emoji:'😂', tag:'Haha! 😂', tagBg:'rgba(255,213,79,0.15)', tagColor:'#ffd54f',
+   msg:'Itni serious kyun ho? Main hoon na tension lene ke liye! 😎 <em>Bas muskurao.</em>'},
+  {label:'🌸 Care', color:'#7aab8f', emoji:'🌸', tag:'Care 🌸', tagBg:'rgba(122,171,143,0.15)', tagColor:'#7aab8f',
+   msg:'<em>Paani piya?</em> Khana khaya? Neend puri? Agar nahi  -  toh ab! Main dekh raha hoon 👀'},
+  {label:'✨ Sweet', color:'#9b87c4', emoji:'✨', tag:'Sweet ✨', tagBg:'rgba(155,135,196,0.15)', tagColor:'#b39ddb',
+   msg:'Duniya mein bahut log hain  -  par <em>tum jaisi koi nahi.</em> Sachchi baat.'},
+  {label:'😏 Tease', color:'#ff8a65', emoji:'😏', tag:'Tease 😏', tagBg:'rgba(255,138,101,0.15)', tagColor:'#ff8a65',
+   msg:'Tum itni acchi kyun ho sab cheez mein? <em>Ab main kya karun!</em> 🤦'},
+  {label:'💛 Real', color:'#d4a843', emoji:'💛', tag:'Sachchi Baat', tagBg:'rgba(212,168,67,0.15)', tagColor:'#d4a843',
+   msg:'Main care karta hoon  -  words se nahi, <em>actions se.</em> Woh fark main banana chahta hoon.'},
+  {label:'🥺 Deep', color:'#f28fa0', emoji:'🥺', tag:'Deep 🥺', tagBg:'rgba(242,143,160,0.15)', tagColor:'#f28fa0',
+   msg:'"Jab bura lage  -  ek message karo." <em>Main samajh jaaunga. Hamesha.</em>'},
+  {label:'🎉 Fun', color:'#64b5f6', emoji:'🎉', tag:'Fun Task! 🎉', tagBg:'rgba(100,181,246,0.15)', tagColor:'#64b5f6',
+   msg:'Aaj ka task: <em>bina wajah ek baar muskurao.</em> Agar nahi kar saki  -  main wajah dhundh lunga! 😄'},
+];
+
+let spinAngle=0, isSpinning=false, spinCount=0;
+
+function initSpinWheel(){
+  const c=document.getElementById('spinCanvas');
+  const ctx=c.getContext('2d');
+  drawSpinWheel(ctx, c.width, 0);
+}
+
+function drawSpinWheel(ctx, W, angle){
+  const cx=W/2, cy=W/2, R=W/2-6;
+  const seg=2*Math.PI/spinSegs.length;
+  ctx.clearRect(0,0,W,W);
+  spinSegs.forEach((s,i)=>{
+    const a=angle+i*seg, b=a+seg;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,R,a,b); ctx.closePath();
+    ctx.fillStyle=s.color; ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=2; ctx.stroke();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(a+seg/2);
+    ctx.textAlign='right'; ctx.fillStyle='white';
+    ctx.font='bold 10px Nunito';
+    ctx.shadowColor='rgba(0,0,0,0.5)'; ctx.shadowBlur=3;
+    ctx.fillText(s.label, R-10, 4); ctx.restore();
+  });
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,2*Math.PI);
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=4; ctx.stroke();
+}
+
+function doSpin(){
+  if(isSpinning) return;
+  isSpinning=true;
+  document.getElementById('spinMainBtn').disabled=true;
+  const c=document.getElementById('spinCanvas');
+  const ctx=c.getContext('2d');
+  const extra=(5+Math.floor(Math.random()*5))*2*Math.PI;
+  const target=extra+Math.random()*2*Math.PI;
+  const dur=3500+Math.random()*1000;
+  const start=performance.now(), startA=spinAngle;
+  function anim(now){
+    const p=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-p,4);
+    spinAngle=startA+target*e;
+    drawSpinWheel(ctx, c.width, spinAngle);
+    if(p<1){ requestAnimationFrame(anim); }
+    else {
+      isSpinning=false;
+      document.getElementById('spinMainBtn').disabled=false;
+      spinCount++;
+      const seg=2*Math.PI/spinSegs.length;
+      const norm=((-spinAngle-Math.PI/2)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      const idx=Math.floor(norm/seg)%spinSegs.length;
+      const s=spinSegs[idx];
+      document.getElementById('spinPopEmoji').textContent=s.emoji;
+      document.getElementById('spinPopTag').textContent=s.tag;
+      document.getElementById('spinPopTag').style.background=s.tagBg;
+      document.getElementById('spinPopTag').style.color=s.tagColor;
+      document.getElementById('spinPopMsg').innerHTML=s.msg;
+      document.getElementById('spinPopup').classList.add('show');
+      spawnConfetti(40);
+    }
+  }
+  requestAnimationFrame(anim);
+}
+
+function closeSpinPopup(e){ if(e.target===document.getElementById('spinPopup')) document.getElementById('spinPopup').classList.remove('show'); }
+
+// ===== CONFETTI =====
+function spawnConfetti(n){
+  const cols=['#e8768a','#ffd54f','#7aab8f','#9b87c4','#64b5f6','#ff8a65','#ff6b9d'];
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div');
+    c.className='confetti-p';
+    c.style.cssText=`background:${cols[Math.floor(Math.random()*cols.length)]};left:${Math.random()*100}vw;top:0;animation-delay:${Math.random()*0.6}s;`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.classList.add('fall'),10);
+    setTimeout(()=>c.remove(),2500);
+  }
+}
+
+// ===== NAV DOTS / SCROLL =====
+const sections=['sec0','sec1','sec2','sec3','sec4','secGame','secTyping','sec5'];
+function scrollToSection(i){ document.getElementById(sections[i]).scrollIntoView({behavior:'smooth'}); }
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=sections.indexOf(e.target.id);
+      if(i>=0){
+        document.querySelectorAll('.nav-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+      }
+    }
+  });
+},{threshold:0.4});
+sections.forEach(id=>{ const el=document.getElementById(id); if(el) observer.observe(el); });
+
+// ===== TYPING MESSAGE ANIMATION =====
+const typingMessages = [
+  { type: 'received', text: 'Ek baat kehni thi tumse... 🌸', delay: 800 },
+  { type: 'received', text: 'Tum bahut khaas ho  -  yeh main isliye nahi bol raha ki tumhe achha lagega...', delay: 2200 },
+  { type: 'received', text: 'Isliye bol raha hoon kyunki yeh sach hai. 💛', delay: 1800 },
+  { type: 'sent', text: 'Haha ye tum bas bol rahe ho 😅', delay: 1500 },
+  { type: 'received', text: 'Nahi suno seriously...', delay: 1200 },
+  { type: 'received', text: 'Jab bhi bura lagta hai tumhe  -  main feel kar leta hoon. 🥺', delay: 2000 },
+  { type: 'sent', text: 'Sach mein? 👀', delay: 1200 },
+  { type: 'received', text: 'Haan. Tumhari khushi mujhe khush karti hai. Aur tumhara dard nahi dekh sakta. 💕', delay: 2000 },
+  { type: 'received', text: 'Isliye ek kaam karo  - ', delay: 1400 },
+  { type: 'received', text: 'Khud ke liye nahi to mere liye apna khayal rakha karo 🥺', delay: 2000 },
+  { type: 'sent', text: 'Yeh toh emotional kar diya 😭', delay: 1400 },
+  { type: 'received', text: 'Khana time pe khaya? 🍽️', delay: 1400 },
+  { type: 'sent', text: '...', delay: 900 },
+  { type: 'received', text: 'Bas yahi socha tha 😤', delay: 1000 },
+  { type: 'sent', text: 'Areh main theek hoon 😤', delay: 1200 },
+  { type: 'received', text: 'Tum theek nahi hoti jab chakkar aata hai  -  yeh mat bhoolna 😒', delay: 1800 },
+  { type: 'received', text: 'Tum important ho. Mere liye. Seriously. 💛', delay: 1800 },
+  { type: 'sent', text: 'Okay okay khayal rakhugi apna 🌸', delay: 1300 },
+  { type: 'received', text: 'Promise? 👀', delay: 1000 },
+  { type: 'sent', text: 'Promise 💕', delay: 1000 },
+  { type: 'received', text: 'Good. Main yahin hoon hamesha. ✨', delay: 1400 },
+  { type: 'sent', text: '💕', delay: 800, emojiOnly: true },
+  { type: 'received', text: '🌸', delay: 700, emojiOnly: true },
+];
+
+let typingInterval = null;
+let typingRunning = false;
+
+function startTypingAnimation() {
+  if (typingRunning) return;
+  typingRunning = true;
+  document.getElementById('startTypingBtn').style.display = 'none';
+  document.getElementById('msgContainer').innerHTML = '';
+  showNextMessage(0);
+}
+
+function replayTyping() {
+  typingRunning = false;
+  document.getElementById('replayTypingBtn').style.display = 'none';
+  document.getElementById('startTypingBtn').style.display = 'inline-block';
+  document.getElementById('msgContainer').innerHTML = '';
+}
+
+function showNextMessage(idx) {
+  if (idx >= typingMessages.length) {
+    document.getElementById('typingIndicator').style.display = 'none';
+    document.getElementById('replayTypingBtn').style.display = 'inline-block';
+    spawnConfetti(30);
+    return;
+  }
+  const msg = typingMessages[idx];
+  const container = document.getElementById('msgContainer');
+  const indicator = document.getElementById('typingIndicator');
+
+  // Show typing indicator for received messages
+  if (msg.type === 'received') {
+    indicator.style.display = 'block';
+    container.scrollTop = container.scrollHeight;
+  }
+
+  setTimeout(() => {
+    indicator.style.display = 'none';
+
+    // Create message
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `display:flex;flex-direction:column;align-items:${msg.type === 'sent' ? 'flex-end' : 'flex-start'};`;
+
+    const bubble = document.createElement('div');
+    bubble.className = `msg-bubble msg-${msg.type}${msg.emojiOnly ? ' msg-emoji-only' : ''}`;
+    bubble.textContent = msg.text;
+
+    const time = document.createElement('div');
+    time.className = `msg-time${msg.type === 'sent' ? ' right' : ''}`;
+    const now = new Date();
+    time.textContent = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
+
+    wrapper.appendChild(bubble);
+    wrapper.appendChild(time);
+    container.appendChild(wrapper);
+    container.scrollTop = container.scrollHeight;
+
+    // Next message
+    setTimeout(() => showNextMessage(idx + 1), msg.delay);
+  }, msg.type === 'received' ? 1200 : 400);
+}
+
+// ===== FUN ZONE =====
+
+// Tab switching
+function switchGameTab(tab) {
+  const ge = document.getElementById('gameEng');
+  const gs = document.getElementById('gameSci');
+  const gb = document.getElementById('gameBreath');
+  if(ge) ge.style.display = tab==='eng' ? 'block' : 'none';
+  if(gs) gs.style.display = tab==='sci' ? 'block' : 'none';
+  if(gb) gb.style.display = tab==='breath' ? 'block' : 'none';
+  const tabs = {eng:'tabEng', sci:'tabSci', breath:'tabBreath'};
+  Object.entries(tabs).forEach(([k,id]) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(k === tab) {
+      el.style.background = 'linear-gradient(135deg,#ff6b9d,#ff6b35)';
+      el.style.color = 'white';
+    } else {
+      el.style.background = 'transparent';
+      el.style.color = 'rgba(255,255,255,0.5)';
+    }
+  });
+  if(tab==='eng') { try { loadEngQ(); } catch(e){} }
+  if(tab==='sci') { try { loadSciQ(); } catch(e){} }
+}
+
+// ===== ENGLISH QUIZ =====
+const engData = {
+  grammar: [
+    { q:"Choose the correct form: 'She ___ to school every day.'", opts:["go","goes","going","gone"], ans:1, exp:"Correct! 'goes' is used because in Simple Present tense, we add -s/-es with he/she/it. 📝" },
+    { q:"Identify the noun in: 'The beautiful girl sang a song.'", opts:["beautiful","girl","sang","beautiful girl"], ans:1, exp:"Right! 'girl' is a common noun. 'Beautiful' is an adjective and 'sang' is a verb. 📚" },
+    { q:"Which word is a conjunction? 'I was tired ___ I kept working.'", opts:["but","the","quickly","very"], ans:0, exp:"Correct! 'but' is a coordinating conjunction that joins two contrasting clauses. ✏️" },
+    { q:"Passive voice of: 'She writes a letter.'", opts:["A letter is written by her","A letter was written by her","A letter written by her","Her letter is written"], ans:0, exp:"Right! Active to Passive formula: Object + is/am/are + V3 + by + Subject. Present tense uses 'is'. 📝" },
+    { q:"Identify the figure of speech: 'The wind whispered through the trees.'", opts:["Simile","Metaphor","Personification","Alliteration"], ans:2, exp:"Correct! This is Personification — giving a human quality (whispering) to a non-living thing (wind). 🌬️" },
+    { q:"Choose the correct form: 'If I ___ a bird, I would fly.'", opts:["am","was","were","will be"], ans:2, exp:"Right! In Type 2 Conditional sentences, we use 'were' for imaginary or unreal situations — 'If I were...' 📖" },
+    { q:"What is a clause?", opts:["A single word","A group of words with a subject and verb","A phrase without a verb","A punctuation mark"], ans:1, exp:"Correct! A clause is a group of words that contains both a subject AND a verb. A phrase does not contain a verb. ✏️" },
+    { q:"Change to reported speech: He said, 'I am happy.'", opts:["He said he is happy","He said he was happy","He said I was happy","He told I am happy"], ans:1, exp:"Right! In reported speech, the present tense shifts to past tense. 'am' changes to 'was'. 📝" },
+    { q:"Which sentence has correct subject-verb agreement?", opts:["The team are playing well","The team is playing well","The team were playing well","The teams is playing"], ans:1, exp:"Correct! Collective nouns like 'team' take a singular verb. Therefore 'is' is correct. ✏️" },
+    { q:"'As brave as a lion' is an example of ___", opts:["Metaphor","Simile","Hyperbole","Oxymoron"], ans:1, exp:"Right! A Simile uses 'as...as' or 'like' to compare. A Metaphor makes a direct comparison without these words. 🦁" },
+    { q:"Which sentence uses the correct Subjunctive mood?", opts:["I wish I was taller","I wish I were taller","I wish I am taller","I wish I will be taller"], ans:1, exp:"Correct! In Subjunctive mood, 'were' is used for wishes even when the subject is singular. 📚" },
+    { q:"In 'Despite being tired, she finished the work' — 'Despite' is a ___", opts:["Preposition","Conjunction","Adverb","Adjective"], ans:0, exp:"Right! 'Despite' is a preposition that shows contrast — it works similarly to 'in spite of'. 📝" },
+  ],
+  vocab: [
+    { q:"What is the antonym of 'Ancient'?", opts:["Old","Modern","Historic","Aged"], ans:1, exp:"Correct! Ancient means very old. Its antonym is Modern (contemporary). 📖" },
+    { q:"What is the synonym of 'Courageous'?", opts:["Cowardly","Brave","Shy","Weak"], ans:1, exp:"Right! Courageous = Brave = Fearless. The antonym would be Cowardly. 💪" },
+    { q:"What does 'Benevolent' mean?", opts:["Evil","Kind and generous","Angry","Selfish"], ans:1, exp:"Correct! Benevolent means well-meaning, kind, and generous. Root: bene (good) + volent (wishing). 🌸" },
+    { q:"One word for 'a person who walks in sleep'?", opts:["Insomniac","Somnambulist","Narcissist","Introvert"], ans:1, exp:"Right! Somnambulist means sleepwalker. The Latin root 'somn' means sleep. Insomnia means inability to sleep. 😴" },
+    { q:"What does 'Ephemeral' mean?", opts:["Permanent","Lasting for a very short time","Very important","Extremely large"], ans:1, exp:"Correct! Ephemeral means short-lived or temporary — like flowers that bloom and fade quickly. 🌸" },
+    { q:"What does the idiom 'Bite the bullet' mean?", opts:["Eat something hard","Endure a painful situation bravely","Shoot someone","Give up easily"], ans:1, exp:"Right! Bite the bullet means to endure a painful situation with courage. It originated from surgery performed without anaesthesia. 💪" },
+    { q:"What does 'Ambiguous' mean?", opts:["Very clear","Having more than one meaning","Completely wrong","Extremely happy"], ans:1, exp:"Correct! Ambiguous means unclear or open to more than one interpretation. The prefix 'ambi' means both sides. 📝" },
+    { q:"What does 'Laconic' mean?", opts:["Very talkative","Using very few words","Very emotional","Extremely loud"], ans:1, exp:"Right! Laconic means brief and concise — using the minimum number of words. The opposite is verbose (excessively wordy). ✂️" },
+    { q:"What does the proverb 'A stitch in time saves nine' mean?", opts:["Sewing is important","Deal with a problem early to prevent it from getting worse","Nine is a lucky number","Only about time management"], ans:1, exp:"Correct! If you fix a small problem early, it prevents a much larger one later. Prevention is better than cure! 🧵" },
+    { q:"What does 'Melancholy' mean?", opts:["Great happiness","Deep sadness","Extreme anger","Pure joy"], ans:1, exp:"Right! Melancholy refers to a deep, thoughtful sadness. It is frequently used in poetry and literary writing. 🌧️" },
+  ],
+  lit: [
+    { q:"In the poem 'The Squirrel', what was the squirrel wearing?", opts:["A brown coat","An overcoat of grey","A black hat","A striped shirt"], ans:1, exp:"Correct! The poem says: 'He wore a question mark for tail, An overcoat of grey' — by Mildred Bowers Armstrong. 🐿️" },
+    { q:"Who wrote 'The Last Leaf'?", opts:["Charles Dickens","O. Henry","Mark Twain","R.L. Stevenson"], ans:1, exp:"Right! 'The Last Leaf' was written by O. Henry — a story about a painter who believes she will die when the last leaf falls. 🍃" },
+    { q:"Who wrote 'The Road Not Taken'?", opts:["William Wordsworth","Robert Frost","John Keats","Walt Whitman"], ans:1, exp:"Correct! Robert Frost wrote this iconic poem about two paths in a forest — symbolising the choices we make in life. 🌲" },
+    { q:"In 'His First Flight', what was the young seagull afraid of?", opts:["Water","Flying","Other birds","Humans"], ans:1, exp:"Right! In Liam O'Flaherty's story, the young seagull was afraid to fly. His family encouraged him — a story about courage and trust. 🦅" },
+    { q:"In 'Black Aeroplane', what did the mysterious plane do?", opts:["Gave the pilot a map","Led the pilot safely through the storm","Sent a radio signal","Made an emergency landing"], ans:1, exp:"Correct! The mysterious black aeroplane guided the pilot safely out of the storm — and then vanished without a trace. ✈️" },
+    { q:"Where did Anne Frank and her family hide?", opts:["In a basement","In a Secret Annexe","In a forest","In a church"], ans:1, exp:"Right! Anne Frank and her family hid in a Secret Annexe in Amsterdam for more than two years during World War II. 📔" },
+    { q:"In 'A Letter to God', from whom did Lencho request money?", opts:["The Government","God","His neighbour","A bank"], ans:1, exp:"Correct! Lencho was so innocent and faithful that he wrote a letter directly to God asking for money after his crops were destroyed. 💌" },
+    { q:"In 'The Portrait of a Lady', what did Khushwant Singh's grandmother do daily?", opts:["She taught in school","She fed sparrows and prayed","She cooked food","She read books"], ans:1, exp:"Right! The grandmother's daily routine was to feed sparrows and pray with her rosary — a beautiful image of devotion. 🕊️" },
+    { q:"In 'The Voice of the Rain' by Walt Whitman, what does the rain call itself?", opts:["The voice of clouds","The Poem of Earth","The gift of God","The song of rivers"], ans:1, exp:"Correct! The rain says 'I am the Poem of Earth' — a powerful metaphor connecting rain to the cycle of nature. 🌧️" },
+    { q:"In 'The Last Lesson' by Alphonse Daudet, which language was banned?", opts:["German","French","English","Latin"], ans:1, exp:"Right! After the Franco-Prussian War, French was banned in Alsace and German became compulsory — M. Hamel taught his last French lesson. 📚" },
+    { q:"In 'Indigo', where did Mahatma Gandhi conduct his Satyagraha?", opts:["Bardoli","Champaran","Dandi","Noakhali"], ans:1, exp:"Correct! The Champaran Satyagraha of 1917 was Gandhi's first Satyagraha in India — he fought for the rights of indigo farmers. 🌿" },
+  ],
+}
+
+let engCat = 'grammar';
+let engIdx = 0;
+let engScoreVal = 0;
+let engAnswered = false;
+
+function setEngCat(cat) {
+  engCat = cat;
+  engIdx = 0;
+  engScoreVal = 0;
+  engAnswered = false;
+  document.getElementById('engScore').textContent = 0;
+  const cats = {grammar:'engGram', vocab:'engVocab', lit:'engLit'};
+  Object.entries(cats).forEach(([k,id]) => {
+    const el = document.getElementById(id);
+    if(k === cat) { el.style.background='rgba(219,180,255,0.2)'; el.style.color='#dbb4ff'; }
+    else { el.style.background='rgba(255,255,255,0.05)'; el.style.color='rgba(255,255,255,0.4)'; }
+  });
+  loadEngQ();
+}
+
+function loadEngQ() {
+  const data = engData[engCat];
+  if(engIdx >= data.length) {
+    document.getElementById('engQ').innerHTML = "🎉 Quiz khatam! Score: <span style='color:#dbb4ff'>" + engScoreVal + "/" + data.length + "</span><br><br>" + (engScoreVal >= data.length*0.8 ? "Wah! English genius ho aap! 🌟" : engScoreVal >= data.length*0.5 ? "Bahut achha! Keep going! 💕" : "Practice karo - aap kar sakti ho! 🌸");
+    document.getElementById('engOptions').innerHTML = '';
+    document.getElementById('engFeedback').style.display = 'none';
+    document.getElementById('engNextBtn').style.display = 'none';
+    return;
+  }
+  engAnswered = false;
+  const q = data[engIdx];
+  document.getElementById('engQ').textContent = "Q" + (engIdx+1) + ". " + q.q;
+  document.getElementById('engFeedback').style.display = 'none';
+  document.getElementById('engNextBtn').style.display = 'none';
+  const opts = document.getElementById('engOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);padding:11px 14px;border-radius:12px;font-family:Nunito,sans-serif;font-size:0.88rem;cursor:pointer;text-align:left;transition:all 0.2s;width:100%;margin-bottom:2px;';
+    btn.onmouseover = () => { if(!engAnswered) btn.style.background='rgba(219,180,255,0.12)'; };
+    btn.onmouseout = () => { if(!engAnswered) btn.style.background='rgba(255,255,255,0.05)'; };
+    btn.onclick = () => checkEngAnswer(i);
+    opts.appendChild(btn);
+  });
+}
+
+function checkEngAnswer(idx) {
+  if(engAnswered) return;
+  engAnswered = true;
+  const q = engData[engCat][engIdx];
+  document.getElementById('engOptions').querySelectorAll('button').forEach((b,i) => {
+    b.style.cursor = 'default';
+    if(i === q.ans) { b.style.background='rgba(122,219,143,0.2)'; b.style.borderColor='rgba(122,219,143,0.5)'; b.style.color='#7adb8f'; }
+    else if(i === idx && idx !== q.ans) { b.style.background='rgba(255,107,157,0.15)'; b.style.borderColor='rgba(255,107,157,0.4)'; b.style.color='#ff6b9d'; }
+  });
+  const fb = document.getElementById('engFeedback');
+  fb.style.display = 'block';
+  if(idx === q.ans) {
+    engScoreVal++;
+    document.getElementById('engScore').textContent = engScoreVal;
+    fb.style.cssText = 'display:block;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.85rem;line-height:1.6;background:rgba(122,219,143,0.1);border:1px solid rgba(122,219,143,0.3);color:#7adb8f;';
+    fb.textContent = "Sahi! " + q.exp;
+    spawnConfetti(20);
+  } else {
+    fb.style.cssText = 'display:block;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.85rem;line-height:1.6;background:rgba(255,107,157,0.08);border:1px solid rgba(255,107,157,0.2);color:rgba(255,255,255,0.7);';
+    fb.textContent = "Galat! " + q.exp;
+  }
+  document.getElementById('engNextBtn').style.display = 'block';
+}
+
+function nextEngQ() { engIdx++; loadEngQ(); }
+// Init calls wrapped safely
+// ===== SCIENCE QUIZ =====
+const sciQuestions = [
+  { q:"What are the three things required for photosynthesis?", opts:["Sunlight, CO2, Water","Sunlight, O2, Water","CO2, O2, Minerals","Only Sunlight"], ans:0, exp:"Correct! Photosynthesis requires Sunlight + CO2 + Water. Plants produce glucose and oxygen. Chlorophyll absorbs sunlight. 🌿" },
+  { q:"Who discovered the cell?", opts:["Louis Pasteur","Robert Hooke","Charles Darwin","Gregor Mendel"], ans:1, exp:"Right! Robert Hooke discovered cells in 1665 while observing cork under a microscope and named them 'cells'. 🔬" },
+  { q:"What are disease-causing microorganisms called?", opts:["Saprophytes","Pathogens","Parasites","Decomposers"], ans:1, exp:"Correct! Disease-causing microorganisms are called Pathogens — examples include bacteria, viruses, and fungi. 🦠" },
+  { q:"What does haemoglobin do in the body?", opts:["WBC — fights infection","RBC — carries oxygen","Platelets — blood clotting","Plasma — carries nutrients"], ans:1, exp:"Correct! Haemoglobin is present in RBCs and carries oxygen throughout the body. It is made from iron — deficiency causes anaemia! 🩸" },
+  { q:"Which organelle is called the 'powerhouse of the cell'?", opts:["Nucleus","Ribosome","Mitochondria","Golgi Body"], ans:2, exp:"Correct! Mitochondria is called the powerhouse of the cell — this is where ATP (energy) is produced. 💪" },
+  { q:"What is osmosis?", opts:["Movement of food in cells","Movement of water through a semi-permeable membrane","Gas exchange in lungs","Nutrient absorption"], ans:1, exp:"Right! Osmosis is the movement of water molecules through a semi-permeable membrane from low to high concentration. 💧" },
+  { q:"Which cells transmit signals in the nervous system?", opts:["Epithelial cells","Neurons","Muscle cells","Blood cells"], ans:1, exp:"Correct! Neurons are the basic unit of the nervous system — they transmit electrical signals from the brain to the body. 🧠" },
+  { q:"In Mendel's experiment, which trait was dominant?", opts:["Wrinkled seeds","Green seeds","Round seeds","White flowers"], ans:2, exp:"Right! Round seeds were dominant and wrinkled seeds were recessive. Mendel conducted this experiment on pea plants. 🌱" },
+  { q:"How many pairs of chromosomes are present in the human body?", opts:["20 pairs","23 pairs","24 pairs","46 pairs"], ans:1, exp:"Correct! Humans have 23 pairs = 46 chromosomes total. The 23rd pair determines sex — XX (female) or XY (male). 🧬" },
+  { q:"Who discovered the double helix structure of DNA?", opts:["Darwin and Mendel","Watson and Crick","Hooke and Pasteur","Lamarck and Wallace"], ans:1, exp:"Right! Watson and Crick discovered the double helix structure of DNA in 1953 and received the Nobel Prize. 🧬" },
+  { q:"Where is the reflex action controlled?", opts:["Brain","Spinal Cord","Heart","Lungs"], ans:1, exp:"Correct! Reflex actions are controlled by the spinal cord — the response occurs before the signal reaches the brain. For example, pulling your hand away from something hot. 🦴" },
+  { q:"Which enzyme breaks down starch into sugar?", opts:["Pepsin","Amylase","Lipase","Trypsin"], ans:1, exp:"Right! Amylase breaks down starch into maltose — it is also present in saliva, which is why bread tastes sweet when chewed! 🍬" },
+  { q:"Where does the Krebs cycle take place?", opts:["Cytoplasm","Nucleus","Mitochondria matrix","Ribosome"], ans:2, exp:"Correct! The Krebs cycle (TCA cycle) occurs in the matrix of the mitochondria — it is a key step in cellular respiration. ⚡" },
+  { q:"Which instrument is used to measure blood pressure?", opts:["Thermometer","Sphygmomanometer","Stethoscope","ECG"], ans:1, exp:"Right! Blood pressure is measured using a Sphygmomanometer. Normal BP = 120/80 mmHg. 💊" },
+  { q:"What is the full form of PCR?", opts:["Protein Chain Reaction","Polymerase Chain Reaction","Polymer Cell Reaction","Plasma Cell Response"], ans:1, exp:"Correct! PCR stands for Polymerase Chain Reaction — a technique used to amplify DNA. It was also used in COVID-19 testing! 🔬" },
+  { q:"From where is insulin secreted?", opts:["Liver","Kidney","Pancreas","Thyroid"], ans:2, exp:"Right! Insulin is secreted by the beta cells of the pancreas — it regulates blood sugar. Deficiency leads to diabetes. 🩺" },
+  { q:"What is the ELISA test used for?", opts:["Blood group testing","Detecting antibodies or antigens","X-ray imaging","DNA sequencing"], ans:1, exp:"Correct! ELISA stands for Enzyme-Linked Immunosorbent Assay — used to detect infections like HIV and dengue. 🧪" },
+  { q:"What does 'Bt' stand for in Bt cotton?", opts:["British Technology","Bacillus thuringiensis","Bio Technology","Bacterial Toxin"], ans:1, exp:"Right! Bt = Bacillus thuringiensis — a bacterium whose toxin gene is inserted into cotton plants to protect against pests. 🌱" },
+  { q:"From where does transpiration mainly occur in plants?", opts:["Roots","Stem","Stomata of leaves","Flowers"], ans:2, exp:"Correct! Transpiration mainly occurs through the stomata on the surface of leaves — this is where water vapour is released. 🍃" },
+  { q:"When was the Human Genome Project completed?", opts:["1990","2003","1997","2010"], ans:1, exp:"Right! The Human Genome Project was completed in 2003 — it mapped the complete sequence of human DNA. 🧬" },
+]
+
+let sciIdx = 0;
+let sciScoreVal = 0;
+let sciAnswered = false;
+
+function loadSciQ() {
+  if(sciIdx >= sciQuestions.length) {
+    document.getElementById('sciQ').innerHTML = "🎉 Quiz khatam! Score: <span style='color:#ff6b9d'>" + sciScoreVal + "/" + sciQuestions.length + "</span><br><br>" + (sciScoreVal >= 8 ? "Wah! Science genius ho aap! 🌟" : sciScoreVal >= 5 ? "Bahut achha! 💕" : "Practice karo - aap kar sakti ho! 🌸");
+    document.getElementById('sciOptions').innerHTML = '';
+    document.getElementById('sciFeedback').style.display = 'none';
+    document.getElementById('sciNextBtn').style.display = 'none';
+    return;
+  }
+  sciAnswered = false;
+  const q = sciQuestions[sciIdx];
+  document.getElementById('sciQ').textContent = "Q" + (sciIdx+1) + ". " + q.q;
+  document.getElementById('sciFeedback').style.display = 'none';
+  document.getElementById('sciNextBtn').style.display = 'none';
+  const opts = document.getElementById('sciOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);padding:11px 14px;border-radius:12px;font-family:Nunito,sans-serif;font-size:0.88rem;cursor:pointer;text-align:left;transition:all 0.2s;width:100%;margin-bottom:2px;';
+    btn.onmouseover = () => { if(!sciAnswered) btn.style.background='rgba(100,181,246,0.12)'; };
+    btn.onmouseout = () => { if(!sciAnswered) btn.style.background='rgba(255,255,255,0.05)'; };
+    btn.onclick = () => checkSciAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function checkSciAnswer(idx, btn) {
+  if(sciAnswered) return;
+  sciAnswered = true;
+  const q = sciQuestions[sciIdx];
+  document.getElementById('sciOptions').querySelectorAll('button').forEach((b,i) => {
+    b.style.cursor = 'default';
+    if(i === q.ans) { b.style.background='rgba(122,219,143,0.2)'; b.style.borderColor='rgba(122,219,143,0.5)'; b.style.color='#7adb8f'; }
+    else if(i === idx && idx !== q.ans) { b.style.background='rgba(255,107,157,0.15)'; b.style.borderColor='rgba(255,107,157,0.4)'; b.style.color='#ff6b9d'; }
+  });
+  const fb = document.getElementById('sciFeedback');
+  fb.style.display = 'block';
+  if(idx === q.ans) {
+    sciScoreVal++;
+    document.getElementById('sciScore').textContent = sciScoreVal;
+    fb.style.cssText = 'display:block;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.88rem;line-height:1.6;background:rgba(122,219,143,0.1);border:1px solid rgba(122,219,143,0.3);color:#7adb8f;';
+    fb.textContent = "Sahi! " + q.exp;
+    spawnConfetti(20);
+  } else {
+    fb.style.cssText = 'display:block;margin-top:14px;padding:12px 16px;border-radius:14px;font-size:0.88rem;line-height:1.6;background:rgba(255,107,157,0.08);border:1px solid rgba(255,107,157,0.2);color:rgba(255,255,255,0.7);';
+    fb.textContent = "Galat! " + q.exp;
+  }
+  document.getElementById('sciNextBtn').style.display = 'block';
+}
+
+function nextSciQ() { sciIdx++; loadSciQ(); }
+// sciQ loaded on tab switch
+
+// ===== MAGICAL ANIMATIONS =====
+
+// Continuous petals
+const petalEmojis = ['🌸','🌺','🌹','🌷','✿','❀','🌼','💮'];
+function startPetals() {
+  setInterval(() => {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.cssText = `left:${Math.random()*100}%;animation-duration:${6+Math.random()*6}s;animation-delay:${Math.random()*2}s;font-size:${0.8+Math.random()*1.2}rem;`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 14000);
+  }, 800);
+}
+startPetals();
+
+// Sparkles on mouse move / touch
+function spawnSparkle(x, y) {
+  const sparkles = ['✨','⭐','💫','🌟','✦','✧','★'];
+  for(let i=0;i<4;i++){
+    const s = document.createElement('div');
+    s.className = 'magic-sparkle';
+    const angle = (i/4)*Math.PI*2;
+    const dist = 40 + Math.random()*30;
+    s.textContent = sparkles[Math.floor(Math.random()*sparkles.length)];
+    s.style.cssText = `left:${x}px;top:${y}px;--sx:${Math.cos(angle)*dist/2}px;--sy:${Math.sin(angle)*dist/2}px;--ex:${Math.cos(angle)*dist}px;--ey:${Math.sin(angle)*dist}px;font-size:${0.7+Math.random()*0.6}rem;animation-duration:${0.8+Math.random()*0.6}s;`;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 1500);
+  }
+}
+
+document.addEventListener('mousemove', (e) => {
+  if(Math.random() > 0.85) spawnSparkle(e.clientX, e.clientY);
+});
+document.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  if(Math.random() > 0.6) spawnSparkle(t.clientX, t.clientY);
+}, {passive:true});
+
+// Click burst - hearts + sparkles
+document.addEventListener('click', (e) => {
+  // Hearts
+  const hearts = ['💕','💗','💖','💝','🌸','✨'];
+  for(let i=0;i<6;i++){
+    const h = document.createElement('div');
+    h.className = 'heart-rise';
+    h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.cssText = `left:${e.clientX + (Math.random()-0.5)*60}px;top:${e.clientY}px;font-size:${1+Math.random()*0.8}rem;animation-duration:${1+Math.random()*0.8}s;animation-delay:${Math.random()*0.3}s;`;
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 2000);
+  }
+  spawnSparkle(e.clientX, e.clientY);
+});
+
+// Touch burst
+document.addEventListener('touchstart', (e) => {
+  const t = e.touches[0];
+  const hearts = ['💕','💗','💖','🌸'];
+  for(let i=0;i<4;i++){
+    const h = document.createElement('div');
+    h.className = 'heart-rise';
+    h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.cssText = `left:${t.clientX + (Math.random()-0.5)*40}px;top:${t.clientY}px;font-size:${1+Math.random()*0.8}rem;animation-duration:${1+Math.random()*0.5}s;`;
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 2000);
+  }
+}, {passive:true});
+
+// Firework on section enter
+function launchFireworks(x, y) {
+  const colors = ['#ff6b9d','#ffaa5c','#dbb4ff','#ff6b35','#7adb8f'];
+  for(let i=0;i<20;i++){
+    const f = document.createElement('div');
+    f.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:8px;height:8px;border-radius:50%;background:${colors[Math.floor(Math.random()*colors.length)]};pointer-events:none;z-index:999;opacity:1;`;
+    const angle = (i/20)*Math.PI*2;
+    const dist = 80+Math.random()*80;
+    f.style.setProperty('--fx', Math.cos(angle)*dist+'px');
+    f.style.setProperty('--fy', Math.sin(angle)*dist+'px');
+    f.style.animation = 'firework 0.8s ease-out forwards';
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(), 1000);
+  }
+}
+
+// Firework on scroll to new section
+let lastSection = -1;
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const idx = sections.indexOf(e.target.id);
+      if(idx > lastSection && idx > 0) {
+        lastSection = idx;
+        setTimeout(()=>{
+          launchFireworks(window.innerWidth/2, window.innerHeight/3);
+          spawnConfetti(15);
+        }, 400);
+      }
+    }
+  });
+}, {threshold: 0.5});
+sections.forEach(id => { const el=document.getElementById(id); if(el) sectionObserver.observe(el); });
+
+// ===== SAFE INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  try { switchGameTab('eng'); } catch(e) {}
+  try { newRelaxQuote && newRelaxQuote(); } catch(e) {}
+});
+
+// Fix apostrophe in final letter
+document.querySelectorAll('.final-letter-text').forEach(el=>{
+  el.innerHTML = el.innerHTML.replace(/sun'na/g, "sunna");
+});
+</script>
+</body>
+</html>
